@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private String answer;
     private TextView info;
     private int times;
+    private String[] items = {"2", "3", "4", "5", "6"};
+    private int d =3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initGame() {
-        answer = CreateNumber(3);
+        answer = CreateNumber(d);
         times = 0;
         info.setText("");
     }
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         if(isWin) {
             builder.setMessage("Win");
         }else {
-            builder.setMessage("Loss");
+            builder.setMessage("Loss，答案是:" + answer);
         }
         builder.setCancelable(true);
         builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
@@ -100,7 +102,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SettingClick(View v) {
-
+        AlertDialog alert = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("幾位數");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                d = which + 2;
+                initGame();
+            }
+        });
+        alert = builder.create();
+        alert.show();
     }
 
     public void ExitClick(View v) {
