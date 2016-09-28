@@ -1,7 +1,9 @@
 package tw.lan.myguessnumber;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText input;
     private String answer;
     private TextView info;
+    private int times;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         input = (EditText)findViewById(R.id.numberInput);
         info = (TextView)findViewById(R.id.resultInfo);
-        answer = CreateNumber(3);
-
+        initGame();
+        Log.d("Lan", answer);
     }
 
     public void GuessClick(View v) {
@@ -29,6 +32,33 @@ public class MainActivity extends AppCompatActivity {
         String result = CheckNumber(answer, guess);
         info.append(result + "\n");
         input.setText("");
+        times++;
+        if(result.equals("3A0B")) {
+            showMesgDialog(true);
+            initGame();
+        }else if(times == 10) {
+            showMesgDialog(false);
+        }
+    }
+
+    private void initGame() {
+        answer = CreateNumber(3);
+        times = 0;
+        info.setText("");
+    }
+
+    private void showMesgDialog(Boolean isWin) {
+        AlertDialog alert ;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Info");
+        if(isWin) {
+            builder.setMessage("Win");
+        }else {
+            builder.setMessage("Loss");
+        }
+        alert = builder.create();
+        alert.show();
+
     }
 
     //Create a Number
