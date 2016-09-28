@@ -19,6 +19,7 @@
             />
 
         <EditText
+            android:id="@+id/numberInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/guessBtn"
@@ -59,6 +60,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/resultInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomLayout"
