@@ -1,5 +1,6 @@
 package tw.lan.myguessnumber;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
     public void GuessClick(View v) {
         String guess = input.getText().toString();
         String result = CheckNumber(answer, guess);
-        info.append(result + "\n");
-        input.setText("");
         times++;
+        info.append(times + ":" + result + "\n");
+        input.setText("");
+
         if(result.equals("3A0B")) {
             showMesgDialog(true);
-            initGame();
         }else if(times == 10) {
             showMesgDialog(false);
         }
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMesgDialog(Boolean isWin) {
-        AlertDialog alert ;
+        AlertDialog alert = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Info");
         if(isWin) {
@@ -56,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
         }else {
             builder.setMessage("Loss");
         }
+        builder.setCancelable(true);
+        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                initGame();
+            }
+        });
         alert = builder.create();
         alert.show();
 
