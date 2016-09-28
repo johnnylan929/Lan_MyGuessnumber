@@ -94,4 +94,16 @@ public class MainActivity extends AppCompatActivity {
         }
         return A + "A" + B + "B";
     }
+
+    public void RestartClick(View v) {
+        initGame();
+    }
+
+    public void SettingClick(View v) {
+
+    }
+
+    public void ExitClick(View v) {
+        finish();
+    }
 }
